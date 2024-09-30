@@ -1,2 +1,2 @@
-# DAW2-M06-UF1-ACT2-Objectes_Predefinits_JS
-Actividad para utilizar objetos nativos de JavaScript y control de ventanas.
+# DAW2-M06-UF1-ACT2-Programacio_amb_JS
+Actividad para para aprender las bases de programación de JavaScript.
