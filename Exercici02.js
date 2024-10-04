@@ -10,3 +10,14 @@ elValorMaxJS.textContent = Number.MAX_VALUE;
 elAlturaTotalPantalla.textContent = screen.height;
 elAlturaInternaVentana.textContent = window.innerHeight;
 elURL.textContent = window.location.href;
+
+// <<===========||===========||===========||===========>>
+
+const btnCuentaAtras = document.querySelector("button.start-countdown"),
+  inputMinutos = document.querySelector("input.input-minutos"),
+  inputSegundos = document.querySelector("input.input-segundos");
+
+btnCuentaAtras.addEventListener("click", (event) => {
+  console.log(inputMinutos.value);
+  console.log(inputSegundos.value);
+});
