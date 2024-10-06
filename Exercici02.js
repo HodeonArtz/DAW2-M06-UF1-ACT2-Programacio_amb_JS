@@ -16,12 +16,14 @@ elURL.textContent = window.location.href;
 const btnStartCD = document.querySelector(".btn-start-countdown"),
   btnStopCD = document.querySelector(".btn-stop-countdown"),
   btnPauseCD = document.querySelector(".btn-pause-countdown"),
+  btnStopMusic = document.querySelector(".btn-stop-music"),
   inputMinutes = document.querySelector("input.input-minutos"),
   inputSeconds = document.querySelector("input.input-segundos");
 
 const outputDisplay = document.querySelector(".output-display"),
   outputMinutes = outputDisplay.querySelector(".minutes-output"),
-  outputSeconds = outputDisplay.querySelector(".seconds-output");
+  outputSeconds = outputDisplay.querySelector(".seconds-output"),
+  audioCDPlayer = document.getElementById("audio-cd-player");
 
 let intervalCD;
 let countdownTime = 0;
@@ -34,6 +36,9 @@ function updateCountdown() {
   if (countdownTime === 0) {
     clearInterval(intervalCD);
     intervalCD == null;
+    audioCDPlayer.load();
+    audioCDPlayer.play();
+    btnStopMusic.style.display = "block";
     return;
   }
   countdownTime--;
@@ -53,6 +58,7 @@ function togglePauseBtn() {
 
 btnStartCD.addEventListener("click", (e) => {
   countdownTime = +inputMinutes.value * 60 + +inputSeconds.value;
+  if (countdownTime === 0) return;
   if (intervalCD) {
     clearInterval(intervalCD);
     intervalCD = null;
@@ -83,4 +89,8 @@ btnPauseCD.addEventListener("click", (e) => {
     return;
   }
   clearInterval(intervalCD);
+});
+btnStopMusic.addEventListener("click", (e) => {
+  audioCDPlayer.pause();
+  e.target.style.display = "none";
 });
