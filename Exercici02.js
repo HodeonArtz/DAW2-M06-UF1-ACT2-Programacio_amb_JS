@@ -22,11 +22,17 @@ const btnStartCD = document.querySelector(".btn-start-countdown"),
 const outputDisplay = document.querySelector(".output-display"),
   outputMinutes = outputDisplay.querySelector(".minutes-output"),
   outputSeconds = outputDisplay.querySelector(".seconds-output");
+
 let intervalCD;
+let countdownTime = 0;
 
 btnStartCD.addEventListener("click", (event) => {
-  let countdownTime = +inputMinutes.value * 60 + +inputSeconds.value;
+  countdownTime = +inputMinutes.value * 60 + +inputSeconds.value;
   if (intervalCD) clearInterval(intervalCD);
+  /**
+   * Permite restar la cuentra atras 1 segundo y actualizar el texto de salida
+   * @returns void
+   */
   function updateCountdown() {
     if (countdownTime === 0) {
       clearInterval(intervalCD);
@@ -40,4 +46,9 @@ btnStartCD.addEventListener("click", (event) => {
   }
   updateCountdown();
   intervalCD = setInterval(updateCountdown, 1000);
+});
+btnStopCD.addEventListener("click", (event) => {
+  if (intervalCD) clearInterval(intervalCD);
+  outputMinutes.textContent = outputSeconds.textContent = "00";
+  inputMinutes.value = inputSeconds.value = 0;
 });

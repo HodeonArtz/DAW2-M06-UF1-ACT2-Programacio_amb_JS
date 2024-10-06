@@ -31,7 +31,13 @@
       <div class="input-display">
         <h2>Cuenta atrás</h2>
         <label for="minutos"> Minutos: </label>
-        <input type="number" id="minutos" class="input-minutos" min="0" />
+        <input
+          type="number"
+          id="minutos"
+          class="input-minutos"
+          min="0"
+          value="0"
+        />
         <label for="segundos"> Segundos: </label>
         <input
           type="number"
@@ -39,6 +45,7 @@
           class="input-segundos"
           min="0"
           max="59"
+          value="0"
         />
         <button class="btn-start-countdown">Iniciar</button>
         <button class="btn-stop-countdown">Detener</button>
