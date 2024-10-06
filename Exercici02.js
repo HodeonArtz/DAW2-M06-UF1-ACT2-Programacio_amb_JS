@@ -3,12 +3,12 @@ const infoCells = document.querySelectorAll(
   "#taula_propietats tr > td:nth-child(even)"
 );
 const elMaxValueJS = infoCells[0],
-  elTotalScreenHeight = infoCells[1],
-  elTotalInnerHeight = infoCells[2],
+  elTotalScreenWidth = infoCells[1],
+  elTotalInnerWidth = infoCells[2],
   elURL = infoCells[3];
 elMaxValueJS.textContent = Number.MAX_VALUE;
-elTotalScreenHeight.textContent = screen.height;
-elTotalInnerHeight.textContent = window.innerHeight;
+elTotalScreenWidth.textContent = screen.height;
+elTotalInnerWidth.textContent = window.innerHeight;
 elURL.textContent = window.location.href;
 
 // <<===========||===========||===========||===========>>
@@ -94,3 +94,5 @@ btnStopMusic.addEventListener("click", (e) => {
   audioCDPlayer.pause();
   e.target.style.display = "none";
 });
+
+// <<===========||===========||===========||===========>>
