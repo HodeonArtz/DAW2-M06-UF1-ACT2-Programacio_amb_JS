@@ -68,7 +68,18 @@
         Hora:
         <span class="hour"></span>
       </div>
+      <div class="alarm-setup">
+        <h3>Establecer alarma</h3>
+        <input type="number" min="0" max="24" placeholder="Horas" />
+        <input type="number" min="0" max="59" placeholder="Minutos" />
+        <input type="number" min="0" max="59" placeholder="Segundos" />
+        <div class="alarm-btns">
+          <button class="btn-setup-alarm">Establecer alarma</button>
+          <button class="btn-reset-alarm">Quitar alarma</button>
+        </div>
+      </div>
       <div class="audio-interface">
+        <h3>Establecer tono de alarma</h3>
         <div class="volume-control-container">
           <label for="volume">volum:</label>
           <input type="range" min="0" max="100" value="80" />
