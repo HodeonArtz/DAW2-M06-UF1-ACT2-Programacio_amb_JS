@@ -174,6 +174,7 @@ function playAudio() {
   audioAlarm.src = selectAlarmAudio.value;
   updateVolume();
   audioAlarm.load();
+  audioAlarm.muted = false;
   audioAlarm.play();
 }
 function stopAudio() {
