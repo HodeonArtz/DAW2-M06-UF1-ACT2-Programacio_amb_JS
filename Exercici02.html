@@ -62,5 +62,35 @@
         </button>
       </div>
     </div>
+    <div class="alarma">
+      <h2>Alarma</h2>
+      <div class="clock"></div>
+      <div class="audio-interface">
+        <div class="volume-control-container">
+          <label for="volume">volum:</label>
+          <input type="range" min="0" max="100" value="80" />
+        </div>
+        <div class="time-control-container">
+          <label for="time">time: </label>
+          0:00 -
+          <span class="output-elapsed"></span>
+        </div>
+        <div class="control-btns">
+          <button class="btn-play">PLAY</button>
+          <button class="btn-stop">STOP</button>
+          <button class="btn-pause">PAUSE</button>
+          <button class="btn-mute">MUTE</button>
+          <button class="btn-vol-up">VOL+</button>
+          <button class="btn-vol-down">VOL-</button>
+        </div>
+        <select id="audio-select" class="audio-select" size="4">
+          <option value="./assets/audio/DRUMC0.WAV">DRUMC0.WAV</option>
+          <option value="./assets/audio/FANFARE1.WAV">FANFARE1.WAV</option>
+          <option value="./assets/audio/Thomas_Bangalter_-_On_Da_Rocks.mp3.WAV">
+            Thomas Bangalter - On Da Rocks
+          </option>
+        </select>
+      </div>
+    </div>
   </body>
 </html>
