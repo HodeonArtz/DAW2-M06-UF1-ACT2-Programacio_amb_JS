@@ -70,19 +70,45 @@
       </div>
       <div class="alarm-setup">
         <h3>Establecer alarma</h3>
-        <input type="number" min="0" max="24" placeholder="Horas" />
-        <input type="number" min="0" max="59" placeholder="Minutos" />
-        <input type="number" min="0" max="59" placeholder="Segundos" />
+        <p class="message"></p>
+        <input
+          type="number"
+          min="0"
+          max="24"
+          placeholder="Horas"
+          class="input-alarm-hours"
+        />
+        <input
+          type="number"
+          min="0"
+          max="59"
+          placeholder="Minutos"
+          class="input-alarm-minutes"
+        />
+        <input
+          type="number"
+          min="0"
+          max="59"
+          placeholder="Segundos"
+          class="input-alarm-seconds"
+        />
         <div class="alarm-btns">
           <button class="btn-setup-alarm">Establecer alarma</button>
           <button class="btn-reset-alarm">Quitar alarma</button>
         </div>
       </div>
       <div class="audio-interface">
+        <audio src="" class="audio-alarm"></audio>
         <h3>Establecer tono de alarma</h3>
         <div class="volume-control-container">
           <label for="volume">volum:</label>
-          <input type="range" min="0" max="100" value="80" />
+          <input
+            type="range"
+            min="0"
+            max="100"
+            value="80"
+            class="range-alarm-volume"
+          />
         </div>
         <div class="time-control-container">
           <label for="time">time: </label>
@@ -97,7 +123,7 @@
           <button class="btn-vol-up">VOL+</button>
           <button class="btn-vol-down">VOL-</button>
         </div>
-        <select id="audio-select" class="audio-select">
+        <select id="audio-alarm-select" class="audio-select">
           <option value="./assets/audio/DRUMC0.WAV">DRUMC0.WAV</option>
           <option value="./assets/audio/FANFARE1.WAV">FANFARE1.WAV</option>
           <option value="./assets/audio/Thomas_Bangalter_-_On_Da_Rocks.mp3.WAV">

@@ -17,8 +17,8 @@ const btnStartCD = document.querySelector(".btn-start-countdown"),
   btnStopCD = document.querySelector(".btn-stop-countdown"),
   btnPauseCD = document.querySelector(".btn-pause-countdown"),
   btnStopMusic = document.querySelector(".btn-stop-music"),
-  inputMinutes = document.querySelector("input.input-minutos"),
-  inputSeconds = document.querySelector("input.input-segundos");
+  inputCDMinutes = document.querySelector("input.input-minutos"),
+  inputCDSeconds = document.querySelector("input.input-segundos");
 
 const outputDisplay = document.querySelector(".output-display"),
   outputMinutes = outputDisplay.querySelector(".minutes-output"),
@@ -57,7 +57,7 @@ function togglePauseBtn() {
 }
 
 btnStartCD.addEventListener("click", (e) => {
-  countdownTime = +inputMinutes.value * 60 + +inputSeconds.value;
+  countdownTime = +inputCDMinutes.value * 60 + +inputCDSeconds.value;
   if (countdownTime === 0) return;
   if (intervalCD) {
     clearInterval(intervalCD);
@@ -75,7 +75,7 @@ btnStopCD.addEventListener("click", (e) => {
     intervalCD = null;
   }
   outputMinutes.textContent = outputSeconds.textContent = "00";
-  inputMinutes.value = inputSeconds.value = 0;
+  inputCDMinutes.value = inputCDSeconds.value = 0;
   pausedCD = true;
   btnPauseCD.textContent = "Pausar";
 });
@@ -96,18 +96,79 @@ btnStopMusic.addEventListener("click", (e) => {
 });
 
 // <<===========||===========||===========||===========>>
-const elHour = document.querySelector(".alarma .clock span.hour");
-let hours = 0,
-  minutes = 0,
-  seconds = 0;
+const inputAlarmHours = document.querySelector(".alarma .input-alarm-hours"),
+  inputAlarmMinutes = document.querySelector(".alarma .input-alarm-minutes"),
+  inputAlarmSeconds = document.querySelector(".alarma .input-alarm-seconds"),
+  btnSetupAlarm = document.querySelector(".alarma .btn-setup-alarm"),
+  btnResetAlarm = document.querySelector(".alarma .btn-reset-alarm"),
+  btnPlayAudio = document.querySelector(".alarma .control-btns .btn-play"),
+  btnStopAudio = document.querySelector(".alarma .control-btns .btn-stop"),
+  btnPauseAudio = document.querySelector(".alarma .control-btns .btn-pause"),
+  btnMuteAudio = document.querySelector(".alarma .control-btns .btn-mute"),
+  btnVolUpAudio = document.querySelector(".alarma .control-btns .btn-vol-up"),
+  btnVolDownAudio = document.querySelector(
+    ".alarma .control-btns .btn-vol-down"
+  ),
+  rangeAlarmVolume = document.querySelector(".alarma .range-alarm-volume"),
+  selectAlarmAudio = document.getElementById("audio-alarm-select");
+
+const elHour = document.querySelector(".alarma .clock span.hour"),
+  elMsgAlarm = document.querySelector(".alarma .message"),
+  elOutputElapsed = document.querySelector(".alarma .output-elapsed");
+
+const currentTime = {
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+  },
+  alarmTime = {};
+/* alarmTime = {
+    hours: X hours,
+    minutes: X mins,
+    seconds: X secs
+  } */
+
+let alarmInterval = null;
+
+const formatHours = (time) =>
+    `${time.hours.toString().padStart(2, 0)}:${time.minutes
+      .toString()
+      .padStart(2, 0)}:${time.seconds.toString().padStart(2, 0)}`,
+  timeToSeconds = (time) =>
+    time.hours * 3600 + time.minutes * 60 + time.seconds;
 
 function updateClock() {
   const time = new Date();
 
-  (hours = time.getHours().toString().padStart(2, 0)),
-    (minutes = time.getMinutes().toString().padStart(2, 0)),
-    (seconds = time.getSeconds().toString().padStart(2, 0));
-  elHour.textContent = `${hours}:${minutes}:${seconds}`;
+  (currentTime.hours = +time.getHours()),
+    (currentTime.minutes = +time.getMinutes()),
+    (currentTime.seconds = +time.getSeconds());
+  elHour.textContent = formatHours(currentTime);
 }
+
+function checkAlarm() {
+  if (timeToSeconds(alarmTime) != timeToSeconds(currentTime)) return;
+  elMsgAlarm.textContent = "Alarma";
+  // accion
+  clearInterval(alarmInterval);
+  alarmInterval = null;
+}
+
+function setAlarm() {
+  alarmTime.hours = +inputAlarmHours.value;
+  alarmTime.minutes = +inputAlarmMinutes.value;
+
+  alarmTime.seconds = +inputAlarmSeconds.value;
+  elMsgAlarm.textContent = `La alarma sonará exactamente a la hora ${formatHours(
+    alarmTime
+  )}`;
+  if (alarmInterval) clearInterval(alarmInterval);
+  alarmInterval = setInterval(checkAlarm, 1000);
+}
+
+// Hora actual
 updateClock();
 setInterval(updateClock, 1000);
+
+// Establecer alarma
+btnSetupAlarm.addEventListener("click", setAlarm);
