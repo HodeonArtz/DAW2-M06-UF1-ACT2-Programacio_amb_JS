@@ -100,7 +100,7 @@ const inputAlarmHours = document.querySelector(".alarma .input-alarm-hours"),
   inputAlarmMinutes = document.querySelector(".alarma .input-alarm-minutes"),
   inputAlarmSeconds = document.querySelector(".alarma .input-alarm-seconds"),
   btnSetupAlarm = document.querySelector(".alarma .btn-setup-alarm"),
-  btnResetAlarm = document.querySelector(".alarma .btn-reset-alarm"),
+  btnUnsetAlarm = document.querySelector(".alarma .btn-unset-alarm"),
   btnPlayAudio = document.querySelector(".alarma .control-btns .btn-play"),
   btnStopAudio = document.querySelector(".alarma .control-btns .btn-stop"),
   btnPauseAudio = document.querySelector(".alarma .control-btns .btn-pause"),
@@ -166,9 +166,19 @@ function setAlarm() {
   alarmInterval = setInterval(checkAlarm, 1000);
 }
 
+function unsetAlarm() {
+  if (alarmInterval) clearInterval(alarmInterval);
+  alarmInterval = null;
+  elMsgAlarm.textContent = ``;
+  inputAlarmHours.value = "";
+  inputAlarmMinutes.value = "";
+  inputAlarmSeconds.value = "";
+}
+
 // Hora actual
 updateClock();
 setInterval(updateClock, 1000);
 
 // Establecer alarma
 btnSetupAlarm.addEventListener("click", setAlarm);
+btnUnsetAlarm.addEventListener("click", unsetAlarm);
