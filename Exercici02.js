@@ -114,14 +114,16 @@ const inputAlarmHours = document.querySelector(".alarma .input-alarm-hours"),
 
 const elHour = document.querySelector(".alarma .clock span.hour"),
   elMsgAlarm = document.querySelector(".alarma .message"),
-  elOutputElapsed = document.querySelector(".alarma .output-elapsed");
+  elOutputElapsed = document.querySelector(".alarma .output-elapsed"),
+  audioAlarm = document.getElementById("audio-alarm");
 
 const currentTime = {
     hours: 0,
     minutes: 0,
     seconds: 0,
   },
-  alarmTime = {};
+  alarmTime = {},
+  VOL_ADDITION = 0.15;
 /* alarmTime = {
     hours: X hours,
     minutes: X mins,
@@ -146,12 +148,58 @@ function updateClock() {
   elHour.textContent = formatHours(currentTime);
 }
 
+function updateVolume() {
+  audioAlarm.volume = +rangeAlarmVolume.value / 100;
+}
+function volUp() {
+  if (+audioAlarm.volume + VOL_ADDITION > 1) {
+    rangeAlarmVolume.value = 100;
+    audioAlarm.volume = 1;
+    return;
+  }
+  rangeAlarmVolume.value = +rangeAlarmVolume.value + VOL_ADDITION * 100;
+  audioAlarm.volume = +audioAlarm.volume + VOL_ADDITION;
+}
+function volDown() {
+  if (+audioAlarm.volume - VOL_ADDITION < 0) {
+    rangeAlarmVolume.value = 0;
+    audioAlarm.volume = 0;
+    return;
+  }
+  rangeAlarmVolume.value = +rangeAlarmVolume.value - VOL_ADDITION * 100;
+  audioAlarm.volume = +audioAlarm.volume - VOL_ADDITION;
+}
+
+function playAudio() {
+  audioAlarm.src = selectAlarmAudio.value;
+  updateVolume();
+  audioAlarm.load();
+  audioAlarm.play();
+}
+function stopAudio() {
+  audioAlarm.src = selectAlarmAudio.value;
+  audioAlarm.pause();
+  audioAlarm.load();
+}
+function pauseAudio() {
+  if (audioAlarm.paused) {
+    updateVolume();
+    audioAlarm.play();
+    return;
+  }
+  audioAlarm.pause();
+}
+function muteAudio() {
+  audioAlarm.muted = !audioAlarm.muted;
+}
+
 function checkAlarm() {
   if (timeToSeconds(alarmTime) != timeToSeconds(currentTime)) return;
-  elMsgAlarm.textContent = "Alarma";
+  elMsgAlarm.textContent = "";
   // accion
   clearInterval(alarmInterval);
   alarmInterval = null;
+  playAudio();
 }
 
 function setAlarm() {
@@ -173,6 +221,7 @@ function unsetAlarm() {
   inputAlarmHours.value = "";
   inputAlarmMinutes.value = "";
   inputAlarmSeconds.value = "";
+  stopAudio();
 }
 
 // Hora actual
@@ -181,4 +230,14 @@ setInterval(updateClock, 1000);
 
 // Establecer alarma
 btnSetupAlarm.addEventListener("click", setAlarm);
+
+// Resetear alarma
 btnUnsetAlarm.addEventListener("click", unsetAlarm);
+
+btnPlayAudio.addEventListener("click", playAudio);
+btnStopAudio.addEventListener("click", stopAudio);
+btnPauseAudio.addEventListener("click", pauseAudio);
+btnMuteAudio.addEventListener("click", muteAudio);
+rangeAlarmVolume.addEventListener("input", updateVolume);
+btnVolUpAudio.addEventListener("click", volUp);
+btnVolDownAudio.addEventListener("click", volDown);
