@@ -96,3 +96,18 @@ btnStopMusic.addEventListener("click", (e) => {
 });
 
 // <<===========||===========||===========||===========>>
+const elHour = document.querySelector(".alarma .clock span.hour");
+let hours = 0,
+  minutes = 0,
+  seconds = 0;
+
+function updateClock() {
+  const time = new Date();
+
+  (hours = time.getHours().toString().padStart(2, 0)),
+    (minutes = time.getMinutes().toString().padStart(2, 0)),
+    (seconds = time.getSeconds().toString().padStart(2, 0));
+  elHour.textContent = `${hours}:${minutes}:${seconds}`;
+}
+updateClock();
+setInterval(updateClock, 1000);
